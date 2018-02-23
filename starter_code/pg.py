@@ -214,7 +214,7 @@ class PG(object):
     """
     ######################################################
     #########   YOUR CODE HERE - 1-2 lines.   ############
-    self.train_op = tf.train.AdamOptimizer(self.lr).minimize(self.loss)
+    self.train_op = tf.train.AdamOptimizer(self.lr).minimize(self.loss) #TODO check if need to restrict scope to policy_network only
     #######################################################
     #########          END YOUR CODE.          ############
   
@@ -241,9 +241,9 @@ class PG(object):
     """
     ######################################################
     #########   YOUR CODE HERE - 4-8 lines.   ############
-    self.baseline = # TODO
-    self.baseline_target_placeholder = # TODO
-    self.update_baseline_op = # TODO
+    self.baseline = build_mlp(self.observation_placeholder, 1, scope)
+    self.baseline_target_placeholder = tf.placeholder(tf.float32, shape=[None])
+    self.update_baseline_op = tf.train.AdamOptimizer(self.lr).minimize(tf.reduce_mean((self.baseline - self.baseline_target_placeholder)**2))
     #######################################################
     #########          END YOUR CODE.          ############
   
@@ -432,7 +432,12 @@ class PG(object):
       rewards = path["reward"]
       #######################################################
       #########   YOUR CODE HERE - 5-10 lines.   ############
-      path_returns = # TODO
+      path_returns = np.zeros(np.shape(rewards))
+      for i in range(len(rewards)):
+          if i == 0:
+              path_returns[-1] = rewards[-1]
+          else:
+              path_returns[-(i+1)] = rewards[-(i+1)] + config.gamma*path_returns[-i]
       #######################################################
       #########          END YOUR CODE.          ############
       all_returns.append(returns)
@@ -469,9 +474,10 @@ class PG(object):
     #######################################################
     #########   YOUR CODE HERE - 5-10 lines.   ############
     if self.config.use_baseline:
-      # TODO
+        adv -= self.sess.run(self.baseline, feed_dict={self.observation_placeholder : observations})
     if self.config.normalize_advantage:
-      # TODO
+        adv -= np.mean(adv)
+        adv /= np.std(adv)
     #######################################################
     #########          END YOUR CODE.          ############
     return adv
@@ -486,7 +492,7 @@ class PG(object):
     """
     #######################################################
     #########   YOUR CODE HERE - 1-5 lines.   ############
-    pass # TODO
+    self.sess.run(self.update_baseline_op, feed_dict={self.baseline_target_placeholder : returns, self.observation_placeholder : observations})
     #######################################################
     #########          END YOUR CODE.          ############
   
