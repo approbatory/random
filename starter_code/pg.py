@@ -171,7 +171,7 @@ class PG(object):
   
     if self.discrete:
       action_logits =         build_mlp(self.observation_placeholder, self.action_dim, scope)
-      self.sampled_action =   tf.squeeze(tf.multinomial(action_logits, 1))
+      self.sampled_action =   tf.squeeze(tf.multinomial(action_logits, 1), [1,1])
       self.logprob =          -tf.nn.sparse_softmax_cross_entropy_with_logits(logits=action_logits, labels=self.action_placeholder)
     else:
       action_means =          build_mlp(self.observation_placeholder, self.action_dim, scope)
@@ -440,7 +440,7 @@ class PG(object):
               path_returns[-(i+1)] = rewards[-(i+1)] + config.gamma*path_returns[-i]
       #######################################################
       #########          END YOUR CODE.          ############
-      all_returns.append(returns)
+      all_returns.append(path_returns)
     returns = np.concatenate(all_returns)
   
     return returns
