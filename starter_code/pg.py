@@ -243,7 +243,9 @@ class PG(object):
     #########   YOUR CODE HERE - 4-8 lines.   ############
     self.baseline = build_mlp(self.observation_placeholder, 1, scope)
     self.baseline_target_placeholder = tf.placeholder(tf.float32, shape=[None])
-    self.update_baseline_op = tf.train.AdamOptimizer(self.lr).minimize(tf.reduce_mean((self.baseline - self.baseline_target_placeholder)**2))
+    delta = self.baseline - self.baseline_target_placeholder
+    loss = tf.reduce_mean(delta**2)
+    self.update_baseline_op = tf.train.AdamOptimizer(self.lr).minimize(loss)
     #######################################################
     #########          END YOUR CODE.          ############
   
@@ -474,7 +476,7 @@ class PG(object):
     #######################################################
     #########   YOUR CODE HERE - 5-10 lines.   ############
     if self.config.use_baseline:
-        adv -= self.sess.run(self.baseline, feed_dict={self.observation_placeholder : observations})
+        adv -= self.sess.run(tf.squeeze(self.baseline), feed_dict={self.observation_placeholder : observations})
     if self.config.normalize_advantage:
         adv -= np.mean(adv)
         adv /= np.std(adv)
