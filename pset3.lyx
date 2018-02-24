@@ -217,6 +217,141 @@ A final average reward value of 535.5 is reached (at trial 100).
 \end_layout
 
 \begin_layout Standard
+\begin_inset Formula 
+\[
+V_{\pi}(s)-\sum_{t=1}^{T'}\gamma^{t-1}\mathbb{E}_{\pi}[r_{t}\mid s_{1}=s]=
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\sum_{t=1}^{\infty}\gamma^{t-1}\mathbb{E}_{\pi}[r_{t}\mid s_{1}=s]-\sum_{t=1}^{T'}\gamma^{t-1}\mathbb{E}_{\pi}[r_{t}\mid s_{1}=s]=
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\sum_{t=T'+1}^{\infty}\gamma^{t-1}\mathbb{E}_{\pi}[r_{t}\mid s_{1}=s]\le\sum_{t=T'+1}^{\infty}\gamma^{t-1}=\gamma^{T'}\sum_{t=1}^{\infty}\gamma^{t-1}=\gamma^{T'}\sum_{t=0}^{\infty}\gamma^{t}=\gamma^{T'}H
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The inequality is due to the fact that rewards are bounded above by 1.
+ Using the lower bound on rewards means that the quantity is bounded below
+ by 0.
+\end_layout
+
+\begin_layout Standard
+It is given that 
+\begin_inset Formula $T'\ge\log_{1/\gamma}H/\epsilon'$
+\end_inset
+
+.
+ However, 
+\begin_inset Formula $1/\gamma$
+\end_inset
+
+ is a number greater than 1, meaning that 
+\begin_inset Formula $(1/\gamma)^{T'}\ge H/\epsilon'\implies\gamma^{T'}\le\epsilon'/H$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+So 
+\begin_inset Formula 
+\[
+V_{\pi}(s)-\sum_{t=1}^{T'}\gamma^{t-1}\mathbb{E}_{\pi}[r_{t}\mid s_{1}=s]\le\gamma^{T'}H\le(\epsilon'/H)H=\epsilon'
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+And since the quantity is bounded below by 0, it can be concluded that:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+|V_{\pi}(s)-\sum_{t=1}^{T'}\gamma^{t-1}\mathbb{E}_{\pi}[r_{t}\mid s_{1}=s]|\le\epsilon'
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For any state s.
+\end_layout
+
+\begin_layout Subsection*
+(b)
+\end_layout
+
+\begin_layout Standard
+Define 
+\begin_inset Formula $T=t-1\ge\frac{1}{\epsilon^{2}}\left(\log_{\frac{1}{\gamma}}\frac{4H}{\epsilon}\right)^{2}$
+\end_inset
+
+.
+ Then:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathbb{E}_{*}[V_{*}(s_{t})]-\mathbb{E}_{A}[V_{A}(s_{t})]=\mathbb{E}_{*}[V_{*}(s_{T+1})]-\mathbb{E}_{A}[V_{A}(s_{T+1})]\le\sqrt{T'+T}-\sqrt{T}+\epsilon'\le\sqrt{T'+\frac{1}{\epsilon^{2}}\left(\log_{\frac{1}{\gamma}}\frac{4H}{\epsilon}\right)^{2}}-\sqrt{\frac{1}{\epsilon^{2}}\left(\log_{\frac{1}{\gamma}}\frac{4H}{\epsilon}\right)^{2}}+\epsilon'
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $\epsilon'>0$
+\end_inset
+
+ and 
+\begin_inset Formula $T'\ge\log_{\frac{1}{\gamma}}\frac{H}{\epsilon'}$
+\end_inset
+
+ (true for any such values).
+ In particular it is true when 
+\begin_inset Formula $T'=\log_{\frac{1}{\gamma}}\frac{H}{\epsilon'}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathbb{E}_{*}[V_{*}(s_{t})]-\mathbb{E}_{A}[V_{A}(s_{t})]\le\sqrt{\log_{\frac{1}{\gamma}}\frac{H}{\epsilon'}+\frac{1}{\epsilon^{2}}\left(\log_{\frac{1}{\gamma}}\frac{4H}{\epsilon}\right)^{2}}-\frac{1}{\epsilon}\left(\log_{\frac{1}{\gamma}}\frac{4H}{\epsilon}\right)+\epsilon'
+\]
+
+\end_inset
+
 
 \end_layout
 
