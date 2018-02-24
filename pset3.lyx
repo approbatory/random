@@ -1,0 +1,224 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1cm
+\topmargin 1cm
+\rightmargin 1cm
+\bottommargin 1cm
+\headheight 1cm
+\headsep 1cm
+\footskip 1cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section*
+1.4 Writeup Questions
+\end_layout
+
+\begin_layout Subsection*
+(a) CartPole-v0
+\end_layout
+
+\begin_layout Standard
+The tensorboard plot for the average reward on the default config setup
+ (200 batches, 1000 batch_size, using baseline):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename 1.4a_basic.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The tensorboard plot for larger batch size: (100 batches, 2000 batch_size,
+ using baseline):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename 1.4a_2000_batch_size.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The tensorboard plot for smaller batch size: (400 batches, 500 batch_size,
+ using baseline):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename 1.4a_500_batch_size.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The total number of training examples is kept constant (batches * batch_size
+ constant).
+ The trend with changing batch size is that larger batch size takes longer
+ to reach 200 but is much more stable once it reaches it and only occasionally
+ drops by a small amount.
+ Smaller batch size reaches 200 more quickly, but is prone to dropping back
+ down more drastically.
+ This is because the gradient estimate from the larger batch is closer to
+ the true gradient and less stochastic (lower variance), at the cost of
+ performing fewer optimization updates per example.
+\end_layout
+
+\begin_layout Standard
+The tensorboard plot without a baseline: (200 batches, 1000 batch_size,
+ NOT using baseline):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename 1.4a_no_baseline.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The lack of a baseline correction results in a longer time taken to reach
+ 200, due to the higher variance of the gradient estimator.
+\end_layout
+
+\begin_layout Subsection*
+(b) InvertedPendulum-v1
+\end_layout
+
+\begin_layout Standard
+The default parameters were used, maximal score was reached by trial 50/100:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename 1.4b_inv_pendulum.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+(c) HalfCheetah-v1
+\end_layout
+
+\begin_layout Standard
+Using 
+\begin_inset Formula $\gamma=0.9$
+\end_inset
+
+, otherwise default parameters.
+\end_layout
+
+\begin_layout Standard
+A final average reward value of 535.5 is reached (at trial 100).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename 1.4c_half_cheetah.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+2 Expected Regret Bounds
+\end_layout
+
+\begin_layout Subsection*
+(a)
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_body
+\end_document

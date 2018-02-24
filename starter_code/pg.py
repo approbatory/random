@@ -175,9 +175,9 @@ class PG(object):
       self.logprob =          -tf.nn.sparse_softmax_cross_entropy_with_logits(logits=action_logits, labels=self.action_placeholder)
     else:
       action_means =          build_mlp(self.observation_placeholder, self.action_dim, scope)
-      log_std =               tf.Variable(0, name='std')
+      log_std =               tf.Variable(0., name='std')
       self.sampled_action =   tf.random_normal([self.action_dim], stddev=tf.exp(log_std)) + action_means
-      self.logprob =          tf.log(tf.contrib.distributions.MultivariateNormalDiag(loc=action_means, scale_diag=tf.ones([self.action_dim])*exp(log_std)).prob(self.action_placeholder)) #TODO verify
+      self.logprob =          tf.log(tf.contrib.distributions.MultivariateNormalDiag(loc=action_means, scale_diag=tf.ones([self.action_dim])*tf.exp(log_std)).prob(self.action_placeholder)) #TODO verify
     #######################################################
     #########          END YOUR CODE.          ############
             

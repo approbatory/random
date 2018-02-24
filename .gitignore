@@ -1,3 +1,5 @@
+\#*\#
+*.lyx~
 gym/
 results/
 # Byte-compiled / optimized / DLL files
